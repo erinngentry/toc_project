@@ -16,7 +16,7 @@ pygame.init
 wn = turtle.Screen()
 turtle.screensize(300, 300)
 wn.bgcolor("black")
-wn.title("DFA INVADERS")
+wn.title("REGEX INVADERS")
 wn.bgpic("space.png")
 
 # Register the shapes
@@ -38,7 +38,7 @@ turtle.register_shape("player.gif")
 #border_pen.hideturtle()	
 
 # Set the score to " "
-score = []
+score = ""
 
 problems = ["{w | the string contains 3 a's}","{w | the string starts with a and ends with b}","{w | the string has no a's}"]
 regex = ["(a{3})*", "^a+b+$", "b*"]
@@ -58,7 +58,7 @@ problem_pen = turtle.Turtle()
 problem_pen.speed(0)
 problem_pen.color("white")
 problem_pen.penup()
-problem_pen.setposition(-350, -290)
+problem_pen.setposition(-290, -350)
 probstring = "Problem: %s" %rand_prob
 problem_pen.write(rand_prob, False, align="left", font=("Arial", 14, "normal"))
 problem_pen.hideturtle()
@@ -75,7 +75,7 @@ player.setheading(90)
 playerspeed = 15
 
 # Choose a number of enemies
-number_of_enemies = 5
+number_of_enemies = 6
 #Create an empty list of enemies
 enemies = []
 
@@ -198,12 +198,13 @@ while True:
 			y = random.randint(100, 250)
 			enemy.setposition(x, y)
 			#Update the score
-			if enemy.shape == 'a.gif':
-				score = score.append('a')
-				print(enemy.shape)
-			if enemy.shape == 'b.gif':
-				score = score.append('b')
-				print(enemy.shape)
+			if enemy.shape() == 'a.gif':
+				score = score + "a"
+				print(score)
+			elif enemy.shape() == 'b.gif':
+				score = score + "b"
+				print(score)
+			scorestring = "Score: " + score
 			score_pen.clear()
 			score_pen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
 		
