@@ -8,6 +8,7 @@ import os
 import math
 import random
 import pygame
+import re
 
 pygame.init
 
@@ -39,15 +40,28 @@ turtle.register_shape("player.gif")
 # Set the score to " "
 score = []
 
+problems = ["{w | the string contains 3 a's}","{w | the string starts with a and ends with b}","{w | the string has no a's}"]
+regex = ["(a{3})*", "^a+b+$", "b*"]
+
+rand_prob = problems[random.randrange(len(problems))]
 # Draw the score
 score_pen = turtle.Turtle()
 score_pen.speed(0)
 score_pen.color("white")
 score_pen.penup()
 score_pen.setposition(-350, 290)
-scorestring = "Score: ", score
+scorestring = "Score: %s" %score
 score_pen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
 score_pen.hideturtle()
+
+problem_pen = turtle.Turtle()
+problem_pen.speed(0)
+problem_pen.color("white")
+problem_pen.penup()
+problem_pen.setposition(-350, -290)
+probstring = "Problem: %s" %rand_prob
+problem_pen.write(rand_prob, False, align="left", font=("Arial", 14, "normal"))
+problem_pen.hideturtle()
 
 # Create the player turtle
 player = turtle.Turtle()
@@ -64,6 +78,7 @@ playerspeed = 15
 number_of_enemies = 5
 #Create an empty list of enemies
 enemies = []
+
 
 
 names = ['a.gif', 'b.gif']
@@ -98,7 +113,7 @@ bullet.setheading(90)
 bullet.shapesize(1.5, 1.5)
 bullet.hideturtle()
 
-bulletspeed = 20
+bulletspeed = 30
 
 # Define bullet state
 #ready - ready to fire
@@ -189,7 +204,6 @@ while True:
 			if enemy.shape == 'b.gif':
 				score = score.append('b')
 				print(enemy.shape)
-			scorestring = "Score: ", score
 			score_pen.clear()
 			score_pen.write(scorestring, False, align="left", font=("Arial", 14, "normal"))
 		
